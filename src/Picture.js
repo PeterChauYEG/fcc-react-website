@@ -6,12 +6,37 @@ import background from './data/background';
 import image from './data/image';
 
 class Picture extends Component {
+  constructor() {
+    super();
+    
+    // define state
+    this.state = {
+      enlarge: false
+    };
+    
+    this.handleClick = this.handleClick.bind(this);
+  }
+  
+  handleClick() {
+    console.log('click');
+    this.setState(
+      {
+        enlarge: !this.state.enlarge
+      }
+    );
+    console.log(this.state.enlarge);
+  }
+  
   render() {
     const { 
       params: {
         id
       } 
     } = this.props;
+    
+    const {
+      enlarge
+    } = this.state;
 
     if (!background.hasOwnProperty(id)) {
       return (
@@ -20,7 +45,7 @@ class Picture extends Component {
     }
     
     return (
-      <main className={`${background[id]} cf pa3 pa4-m pa5-l mw-100 center`}>
+      <main className={`${background[id]} cf pa3 pa4-m pa5-l mw-100 min-vh-100 center`}>
         <div className="fr w-100 w-80-l">
           <p className="f6">
             Beitrage zut
@@ -61,11 +86,22 @@ class Picture extends Component {
             </p>
           </div>
         </div>
-        <img 
-          src={image[id]} 
-          className="db center" 
-          role="presentation"
-        />
+        {enlarge ?
+          <div className={`${background[id]} absolute top-0 right-0 bottom-0 left-0 w-100 z-999`}>
+            <img 
+              src={image[id]} 
+              className="absolute top-0 right-0 bottom-0 left-0 w-100 pointer"
+              role="presentation"
+              onClick={this.handleClick}
+            />
+          </div> :
+          <img 
+            src={image[id]} 
+            className="db center grow pointer dim"
+            role="presentation"
+            onClick={this.handleClick}
+          />          
+        }
       </main>
     );
   }
