@@ -1,29 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
+import { Link, Redirect } from 'react-router';
 
-const image = {
-  "1": "http://mrmrs.io/photos/v/022.jpg",
-  "2": "http://mrmrs.io/photos/v/024.jpg",
-  "3": "http://mrmrs.io/photos/050.jpg",
-  "4": "http://mrmrs.io/photos/049.jpg",
-  "5": "http://mrmrs.io/photos/051.jpg",
-  "6": "http://mrmrs.io/photos/u/001.jpg",
-  "7": "http://mrmrs.io/photos/u/002.jpg",
-  "8": "http://mrmrs.io/photos/u/003.jpg",
-  "9": "http://mrmrs.io/photos/u/004.jpg",
-};
-
-const background = {
-  "1": "bg-light-gray",
-  "2": "bg-white",
-  "3": "bg-near-white",
-  "4": "bg-light-gray",
-  "5": "bg-near-white",
-  "6": "bg-white",
-  "7": "bg-light-purple",
-  "8": "bg-moon-gray",
-  "9": "bg-washed-red",
-};
+// import data
+import background from './data/background';
+import image from './data/image';
 
 class Picture extends Component {
   render() {
@@ -32,6 +12,12 @@ class Picture extends Component {
         id
       } 
     } = this.props;
+
+    if (!background.hasOwnProperty(id)) {
+      return (
+        <Redirect to='/'/>
+      );
+    }
     
     return (
       <main className={`${background[id]} cf pa3 pa4-m pa5-l mw-100 center`}>
@@ -75,7 +61,11 @@ class Picture extends Component {
             </p>
           </div>
         </div>
-        <img src={image[id]} className="db center" role="presentation" />
+        <img 
+          src={image[id]} 
+          className="db center" 
+          role="presentation"
+        />
       </main>
     );
   }
