@@ -14,17 +14,15 @@ class Picture extends Component {
       enlarge: false
     };
     
-    this.handleClick = this.handleClick.bind(this);
+    this._handleClick = this._handleClick.bind(this);
   }
   
-  handleClick() {
-    console.log('click');
+  _handleClick() {
     this.setState(
       {
         enlarge: !this.state.enlarge
       }
     );
-    console.log(this.state.enlarge);
   }
   
   render() {
@@ -92,14 +90,14 @@ class Picture extends Component {
               src={image[id]} 
               className="absolute top-0 right-0 bottom-0 left-0 w-100 pointer"
               role="presentation"
-              onClick={this.handleClick}
+              onClick={this._handleClick}
             />
           </div> :
           <img 
             src={image[id]} 
             className="db center grow pointer dim"
             role="presentation"
-            onClick={this.handleClick}
+            onClick={this._handleClick}
           />          
         }
       </main>

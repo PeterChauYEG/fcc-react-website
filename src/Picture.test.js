@@ -6,5 +6,6 @@ import { shallow } from 'enzyme';
 import Picture from './Picture';
 
 it('renders without crashing', () => {
-  shallow(<Picture />);
+  const params = {id: "1"};
+  shallow(<Picture params={params} />);
 });
