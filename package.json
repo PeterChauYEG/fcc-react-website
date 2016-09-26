@@ -1,6 +1,7 @@
 {
   "name": "website",
   "version": "0.1.0",
+  "homepage": "http://peterchauyeg.github.io/fcc-react-website",
   "private": true,
   "devDependencies": {
     "enzyme": "^2.4.1",
