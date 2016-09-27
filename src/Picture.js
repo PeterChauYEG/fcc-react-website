@@ -17,6 +17,7 @@ class Picture extends Component {
     this._handleClick = this._handleClick.bind(this);
   }
   
+  // define click handler function
   _handleClick() {
     this.setState(
       {
@@ -25,23 +26,8 @@ class Picture extends Component {
     );
   }
   
-  render() {
-    const { 
-      params: {
-        id
-      } 
-    } = this.props;
-    
-    const {
-      enlarge
-    } = this.state;
-
-    if (!background.hasOwnProperty(id)) {
-      return (
-        <Redirect to='/'/>
-      );
-    }
-    
+  // define page renderer
+  renderPage(id) {
     return (
       <main className={`${background[id]} cf pa3 pa4-m pa5-l mw-100 min-vh-100 center`}>
         <div className="fr w-100 w-80-l">
@@ -84,23 +70,52 @@ class Picture extends Component {
             </p>
           </div>
         </div>
-        {enlarge ?
-          <div className={`${background[id]} absolute top-0 right-0 bottom-0 left-0 w-100 z-999`}>
-            <img 
-              src={image[id]} 
-              className="absolute top-0 right-0 bottom-0 left-0 w-100 pointer"
-              role="presentation"
-              onClick={this._handleClick}
-            />
-          </div> :
+        <img 
+          src={image[id]} 
+          className="db center grow pointer dim"
+          role="presentation"
+          onClick={this._handleClick}
+        />          
+      </main>
+    );    
+  } 
+  
+  // define enlarged picture renderer
+  renderEnlargedPicture(id) {
+    return (
+      <div className={`dt h-100 w-100 ${background[id]}`}>
+        <div className="dtc v-mid">
           <img 
             src={image[id]} 
-            className="db center grow pointer dim"
+            className="pointer"
             role="presentation"
             onClick={this._handleClick}
-          />          
-        }
-      </main>
+          />
+        </div>
+      </div>    
+    );    
+  }
+  render() {
+    const { 
+      params: {
+        id
+      } 
+    } = this.props;
+    
+    const {
+      enlarge
+    } = this.state;
+
+    if (!background.hasOwnProperty(id)) {
+      return (
+        <Redirect to='/'/>
+      );
+    }
+    
+    return (
+      <div className="h-100">
+        {enlarge ? this.renderEnlargedPicture(id) : this.renderPage(id)}
+      </div>
     );
   }
 }
